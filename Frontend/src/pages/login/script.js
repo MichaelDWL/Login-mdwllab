@@ -1,3 +1,5 @@
+
+
 function togglePassword() {
       const password = document.getElementById("password");
       const icon = document.querySelector(".toggle-password");
@@ -12,3 +14,8 @@ function togglePassword() {
         icon.classList.add("fa-eye");
       }
     }
+
+function criptografarSenha() {
+
+
+}
