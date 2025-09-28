@@ -1,0 +1,1 @@
+// Conctar com o backend para enviar o email de dois fatores

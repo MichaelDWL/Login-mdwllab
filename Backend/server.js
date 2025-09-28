@@ -5,6 +5,8 @@ import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken' // importar o modulo jsonwebtoken
 import db from "./db.js" // Conexão com o banco de dados
 
+
+
 import { fileURLToPath } from 'url';
 
 // Correção para usar __dirname em módulos ES
