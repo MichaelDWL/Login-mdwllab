@@ -68,14 +68,6 @@ app.post('/login', (req, res) => {
             );
         });
 
-
-//Rota para twofactors 
-app.get("/twofactors", (req, res) => {
-  const filePath = path.resolve(__dirname, "../Frontend/src/pages/twofactors/twofactors.html");
-  res.sendFile(filePath);
-});
-
-
 // middleware para verificar se o usuário está autenticado
 
 function authenticateToken(req, res, next) {

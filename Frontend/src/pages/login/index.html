@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mdwl-login</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="../../styles/style.css">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- importa os icones  -->
 </head>
@@ -14,7 +14,7 @@
     <div class="card">
         <h2>Login</h2>
         
-        <form action="/login" id="login-form" method="POST"> <!-- action e method para enviar os dados para o backend -->
+        <form  id="login-form"> <!-- action e method para enviar os dados para o backend -->
         
         <div class="input-box">
             <i class="fa fa-user"></i> <!-- icone de usuario -->
@@ -24,7 +24,7 @@
         <div class="input-box">
             <i class="fa fa-lock"></i> <!-- icone de cadeado -->
             <input type="password" placeholder="Password" name="password" id="password" required>
-            <i class="fa fa-eye toggle-password" onclick="togglePassword()"></i> <!-- icone de olho + a função de visualizar a senha -->
+            <i class="fa fa-eye toggle-password" onclick="togglePassword()"> </i> <!-- icone de olho + a função de visualizar a senha -->
         </div>
 
         <div class="options">
@@ -35,15 +35,10 @@
         <button type="submit">Login</button>
         </form>
 
-        <a href="..."> Register...? </a>
+        <a href="../register/register.html"> Register...? </a>
   </div>
 
     <script src="./login.js" ></script>  
     
 </body>
 </html>
-<<<<<<< HEAD
-=======
-<!-- oi --> 
- 
->>>>>>> 8fc9042c0018e575bacc10c46c4b5d67da1a8368

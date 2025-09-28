@@ -5,7 +5,7 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   // Junta os 5 dígitos em um único código
-  const code = Array.from(form.querySelectorAll("input[name='digit']"))
+  const code = Array.from(form.querySelectorAll("input[name='code']"))
     .map(input => input.value)
     .join("");
 
@@ -25,10 +25,10 @@ form.addEventListener("submit", async (e) => {
     const data = await res.json();
 
     if (res.ok && data.success) {
-      alert("✅ Acesso liberado!");
+      alert("Acesso liberado!");
       window.location.href = "index.html"; // redireciona para home/dashboard
     } else {
-      alert(data.message || "❌ Código inválido!");
+      alert(data.message || "Código inválido!");
     }
   } catch (err) {
     console.error("Erro ao verificar código:", err);

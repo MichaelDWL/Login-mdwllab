@@ -130,3 +130,12 @@ button:hover {
     border-radius: 15px;
     font-size: 16px;
 }
+
+
+
+.nome-input{
+    display: flex;
+    width: 150px;
+    flex-direction: row;
+    margin-right: 10px;
+}
