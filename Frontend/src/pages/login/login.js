@@ -47,3 +47,14 @@ function criptografarSenha() {
 
 
 }
+
+//VERIFICAÇÃO DE DUAS ETAPAS
+if (res.ok) {
+  const data = await res.json();
+  alert(data.message); // Exibir "Código enviado"
+  window.location.href = "twofactors.html"; // Redireciona para a tela do código
+} else {
+  alert("Erro no login");
+}
+
+
