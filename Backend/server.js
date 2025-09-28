@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken' // importar o modulo jsonwebtoken
 import db from "./db.js" // Conexão com o banco de dados
 
-
+import fs from "fs";
 
 import { fileURLToPath } from 'url';
 
@@ -62,10 +62,19 @@ app.post('/login', (req, res) => {
                 sameSite: 'Lax'
             });
                 return res.json({ message: 'Login bem-sucedido!' });
+                // res.redirect('/twofactors');
 
             }
             );
         });
+
+
+//Rota para twofactors 
+app.get("/twofactors", (req, res) => {
+  const filePath = path.resolve(__dirname, "../Frontend/src/pages/twofactors/twofactors.html");
+  res.sendFile(filePath);
+});
+
 
 // middleware para verificar se o usuário está autenticado
 
@@ -100,4 +109,4 @@ app.post('/logout', (req, res) => {
 
 //INICIA SERVIDOR
 
-app.listen(port, () => console.log('Server is running on port 3300'))
+app.listen(port, () => console.log('Server is running on port 3000'))

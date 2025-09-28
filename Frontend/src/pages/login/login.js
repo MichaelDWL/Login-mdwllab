@@ -19,7 +19,7 @@ form.addEventListener("submit", async (e) => {
 
         if (res.ok) { 
           alert(data.message); // Exibir mensagem de sucesso
-          window.location.href = "twofactors.html"; // Redirecionar para a página home
+          window.location.href = "http://localhost:3000/twofactors"; // Redirecionar para a página home
         } else {
           alert(data.message || "Erro no login"); // Exibir mensagem de erro
         }
