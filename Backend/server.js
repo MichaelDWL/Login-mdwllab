@@ -32,9 +32,9 @@ app.use(cookieParser());
 // Rotas de Login 
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-        db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, results) => {
+        db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, results) => {
            if (err) {
             console.error(err); // para logar no terminal
             return res.status(500).json({ message: 'Erro no servidor' });
@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
 
             //Gerar um token JWT
 
-            const token = jwt.sign({ id: user.id, username: user.username }, 
+            const token = jwt.sign({ id: user.id, email: user.email }, 
                 secret, 
                 { expiresIn: '1h' }
 
@@ -81,14 +81,13 @@ function authenticateToken(req, res, next) {
         req.user = decoded;
         next();
     });
-    
 
 }
 
 // Rota protegida que requer autenticação 
 
 app.get('/protected', authenticateToken, (req, res) => {
-    res.json({ message: `Bem-vindo, ${req.user.username}!`});
+    res.json({ message: `Bem-vindo, ${req.user.email}!`});
 });
 
 //Logout (remover o cookie)

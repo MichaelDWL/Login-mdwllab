@@ -4,14 +4,14 @@ const form = document.getElementById("login-form");
 form.addEventListener("submit", async (e) => {
     e.preventDefault(); // Evitar o comportamento padrão do formulário para controlar pelo JavaScript
 
-    const username = form.querySelector("input[name = 'username']").value.trim();
+    const email = form.querySelector("input[name = 'email']").value.trim();
     const password = form.querySelector("input[name = 'password']").value;
 
     try {
         const res = await fetch("http://localhost:3000/login", {
           method: "POST",
           headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ email, password }),
           credentials: 'include' // Incluir cookies na requisição
         });
 
@@ -19,7 +19,7 @@ form.addEventListener("submit", async (e) => {
 
         if (res.ok) { 
           alert(data.message); // Exibir mensagem de sucesso
-          window.location.href = "/pages/twofactors/twofactors.html"; // Redirecionar para a página home
+          window.location.href = "/Frontend/src/pages/twofactors/twofactors.html"; // Redirecionar para a página home
         } else {
           alert(data.message || "Erro no login"); // Exibir mensagem de erro
         }
@@ -47,6 +47,3 @@ function criptografarSenha() {
 
 
 }
-
-
-export { togglePassword }; 

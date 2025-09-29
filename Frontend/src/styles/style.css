@@ -10,12 +10,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #d7c4f3, #f7f7f7);
+    background: linear-gradient(135deg, #C4C9F3,#E0F3C4 );
     margin: 0;
 }
-
+/* #d7c4f3 #f7f7f7*/
 .card {
-    background: #fff;
+    background: whitesmoke;
     padding: 40px 30px;
     border-radius: 15px;
     box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
@@ -38,7 +38,7 @@ body {
 .input-box {
     display: flex;
     align-items: center;
-    background: #f0f0f0;
+    background: #D6D6D6;
     border: 1px solid transparent;
     border-radius: 30px;
     padding: 10px 15px;
