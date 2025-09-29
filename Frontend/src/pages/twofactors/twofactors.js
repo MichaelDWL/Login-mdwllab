@@ -1,5 +1,5 @@
 // Seleciona o formulário
-const form = document.getElementById("twofactor-form");
+const form = document.getElementById("code-form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -7,7 +7,7 @@ form.addEventListener("submit", async (e) => {
   // Junta os 5 dígitos em um único código
   const code = Array.from(form.querySelectorAll("input[name='code']"))
     .map(input => input.value)
-    .join("");
+    .join("");  
 
   if (code.length !== 5) {
     alert("Por favor, preencha os 5 dígitos.");
@@ -15,7 +15,7 @@ form.addEventListener("submit", async (e) => {
   }
 
   try {
-    const res = await fetch("http://localhost:3000/verify", {
+      const res = await fetch("http://localhost:3000/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code }),

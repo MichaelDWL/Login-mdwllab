@@ -139,3 +139,27 @@ button:hover {
     flex-direction: row;
     margin-right: 10px;
 }
+.required-password {    
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+
+.required-password p {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    text-align: left;
+    /* display: none; */
+
+}
+
+.required-password h2 {
+    color: black;
+    font-size: 12px;
+    /* margin-top: 10px; */
+    margin-bottom: 20px;
+    text-align: left;
+    /* display: none; */
+
+}
