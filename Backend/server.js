@@ -5,6 +5,9 @@ import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken' // importar o modulo jsonwebtoken
 import db from "./db.js" // Conexão com o banco de dados
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import fs from "fs";
 
 import { fileURLToPath } from 'url';
@@ -17,7 +20,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
-const secret = 'seusegredo'; // Substitua por uma boa senha 
+const secret = process.env.JWT_SECRET; // Senha secreta para assinar o token JWT
 
 // Middleware
 
