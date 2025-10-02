@@ -64,7 +64,7 @@ const saltRounds = 10;
  * @param {string} password - senha original digitada pelo usuário
  * @returns {Promise<string>} - hash seguro da senha
  */
-export async function hashPassword(password) {
+  export async function hashPassword(password) {
   return await bcrypt.hash(password, saltRounds);
 }
 
@@ -74,6 +74,7 @@ export async function hashPassword(password) {
  * @param {string} hashedPassword - hash salvo no banco
  * @returns {Promise<boolean>} - true se bater, false caso contrário
  */
+
 export async function comparePassword(password, hashedPassword) {
   return await bcrypt.compare(password, hashedPassword);
 }
