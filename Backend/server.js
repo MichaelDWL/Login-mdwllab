@@ -5,7 +5,10 @@ import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken' // importar o modulo jsonwebtoken
 import db from "./db.js" // Conexão com o banco de dados
 
+import dotenv from "dotenv";
+dotenv.config();
 
+import fs from "fs";
 
 import { fileURLToPath } from 'url';
 
@@ -17,7 +20,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const port = 3000;
-const secret = 'seusegredo'; // Substitua por uma boa senha 
+const secret = process.env.JWT_SECRET; // Senha secreta para assinar o token JWT
 
 // Middleware
 
@@ -32,9 +35,9 @@ app.use(cookieParser());
 // Rotas de Login 
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-        db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], (err, results) => {
+        db.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], (err, results) => {
            if (err) {
             console.error(err); // para logar no terminal
             return res.status(500).json({ message: 'Erro no servidor' });
@@ -48,7 +51,7 @@ app.post('/login', (req, res) => {
 
             //Gerar um token JWT
 
-            const token = jwt.sign({ id: user.id, username: user.username }, 
+            const token = jwt.sign({ id: user.id, email: user.email }, 
                 secret, 
                 { expiresIn: '1h' }
 
@@ -62,6 +65,7 @@ app.post('/login', (req, res) => {
                 sameSite: 'Lax'
             });
                 return res.json({ message: 'Login bem-sucedido!' });
+                // res.redirect('/twofactors');
 
             }
             );
@@ -80,14 +84,13 @@ function authenticateToken(req, res, next) {
         req.user = decoded;
         next();
     });
-    
 
 }
 
 // Rota protegida que requer autenticação 
 
 app.get('/protected', authenticateToken, (req, res) => {
-    res.json({ message: `Bem-vindo, ${req.user.username}!`});
+    res.json({ message: `Bem-vindo, ${req.user.email}!`});
 });
 
 //Logout (remover o cookie)
@@ -100,4 +103,4 @@ app.post('/logout', (req, res) => {
 
 //INICIA SERVIDOR
 
-app.listen(port, () => console.log('Server is running on port 3300'))
+app.listen(port, () => console.log('Server is running on port 3000'))

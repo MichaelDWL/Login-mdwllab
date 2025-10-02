@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="../../styles/style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- importa os icones  -->
+
+</head>
+<body>
+
+<div class="card">
+        <h2>Register</h2>
+        
+        <form  id="register-form"> <!-- action e method para enviar os dados para o backend -->
+
+            <div class="input-box">
+                <i class="fa fa-user"></i> <!-- icone de usuario -->
+                <input type="text" name="username" placeholder="Nome Completo" required>
+            </div>
+            
+        <div class="input-box">
+            <i class="fa fa-envelope"></i> <!-- icone de email -->
+        <input type="text" name="email" placeholder="email" required>
+        </div>
+
+        <div class="input-box">
+            <i class="fa fa-lock"></i> <!-- icone de cadeado -->
+            <input type="password" placeholder="Senha" name="password" id="password" required>
+            
+        </div>
+
+        <div class="required-password">
+            <!-- <h2> Requistos de senha </h2> -->
+            <h2> Sua senha deve conter </h2>
+            <p class="colorP"> Ao menos um: ~ ! ? @ # $ % ^ & * </p>
+            <p> Ao menos 8 caracteres </p>
+            <p> Ao menos uma letra maiuscula e uma minuscula </p>            
+            <p> Ao menos um numero </p>
+        </div>
+
+        <div class="input-box">
+            <i class="fa fa-lock"></i> <!-- icone de cadeado -->
+            <input type="password" placeholder="Confirme sua senha" name="password" id="password" required>
+        </div>
+
+        <button type="submit">Registrar</button>
+        </form>
+
+        <a href="../login/index.html"> Login...? </a>
+  </div>
+
+    <script src="./register.js" ></script>
+    
+</body>
+</html>
