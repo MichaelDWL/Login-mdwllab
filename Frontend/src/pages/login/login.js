@@ -4,7 +4,7 @@ const form = document.getElementById("login-form");
 form.addEventListener("submit", async (e) => {
     e.preventDefault(); // Evitar o comportamento padrão do formulário para controlar pelo JavaScript
 
-    const email = form.querySelector("input[name = 'email']").value.trim();
+    const email = form.querySelector("input[name = 'email']").value.trim(); // trim() remove espaços em branco
     const password = form.querySelector("input[name = 'password']").value;
 
     try {

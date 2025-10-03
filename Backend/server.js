@@ -4,7 +4,7 @@ import path from "path"; // importar o modulo path
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken"; // importar o modulo jsonwebtoken
 import db from "./db.js"; // Conexão com o banco de dados
-import { comparePassword } from "./app.js"; // Função para comparar senhas
+import { comparePassword,hashPassword } from "./app.js"; // Função para comparar senhas
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -117,6 +117,10 @@ app.post("/logout", (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logout realizado" });
 });
+
+// Rota de Registro 
+
+
 
 //INICIA SERVIDOR
 
