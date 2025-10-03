@@ -120,7 +120,29 @@ app.post("/logout", (req, res) => {
 
 // Rota de Registro 
 
+app.post("/register", async (req, res) => {
+  const { username, email, password } = req.body;
 
+  const hashPass = await hashPassword(password)
+
+  console.log(username,email,password)
+
+  db.query(
+    " insert into users (username, email, password) values (?,?,?)", [username, email, hashPass],
+    (err, results) => {
+    
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Erro no servidor" });
+    }
+    if (results === 0){ 
+      console.error(err);
+      return res.status(501).json({ message: "Erro ao registrar usuário" });
+    }  
+  
+    return res.status(201).json({ message: "Usuário registrado com sucesso" });
+  });
+});
 
 //INICIA SERVIDOR
 
