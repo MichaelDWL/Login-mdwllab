@@ -145,7 +145,6 @@ button:hover {
 }
 
 .required-password p {
-    color: red;
     font-size: 12px;
     margin-top: -10px;
     margin-bottom: 10px;
@@ -186,4 +185,13 @@ button:hover {
     text-decoration: none;
     color: #6a0dad;
     font-size: 15px;
+}
+
+
+.password-hint.invalid {
+    color: red;
+}
+
+.password-hint {
+    color: green;
 }
