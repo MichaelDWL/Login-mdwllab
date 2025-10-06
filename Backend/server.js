@@ -122,10 +122,17 @@ app.post("/logout", (req, res) => {
 
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
+  // const wrong = 0; 
+
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({ message: "A senha não atende aos requisitos mínimos" });
+    }
 
   const hashPass = await hashPassword(password)
 
   console.log(username,email,password)
+
 
   db.query(
     " insert into users (username, email, password) values (?,?,?)", [username, email, hashPass],
