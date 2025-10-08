@@ -5,13 +5,13 @@ import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken"; // importar o modulo jsonwebtoken
 import db from "./db.js"; // Conexão com o banco de dados
 import { comparePassword,hashPassword } from "./app.js"; // Função para comparar senhas
-
+import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 
 
-import { fileURLToPath } from "url";
 
 // Correção para usar __dirname em módulos ES
 
@@ -34,7 +34,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// Rotas de Login
+// ------------Rota de Login------------ //
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
@@ -65,6 +65,8 @@ app.post("/login", (req, res) => {
   );
 
 });
+
+// ------------FIM ROTA DE LOGIN------------ //
 
 
 // INICIO DO JWT    
@@ -118,26 +120,36 @@ app.post("/logout", (req, res) => {
   res.json({ message: "Logout realizado" });
 });
 
-// Rota de Registro 
+
+
+// ------------Rota de Registro------------ //  
 
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
-  // const wrong = 0; 
-  // const emaiRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*]).{8,}$/;
-
-    if (!passwordRegex.test(password)) {
+   
+    // Verifica se existe cadastro com esse email 
+    db.query("SELECT EMAIL FORM USERS WHERE EMAIL = ?", [email], async (err, results) => {    
+      if (results.length != 0) { 
+        return res.json({message: "Email já cadastrado, insira um email valido"})
+      }
+    }) 
+    
+    // Verifica se a senha atende os requisitos minimos 
+      if (!passwordRegex.test(password)) {
       return res.status(400).json({ message: "A senha não atende aos requisitos mínimos" });
     }
 
+  // Criptografa a senha 
   const hashPass = await hashPassword(password)
 
-  console.log(username,email,password)
+    // Salva os dados no banco de dados 
 
-  db.query(
+    db.query(
     " insert into users (username, email, password) values (?,?,?)", [username, email, hashPass],
     (err, results) => {
     
+    // Tratamento de exceções 
     if (err) {
       console.error(err);
       return res.status(500).json({ message: "Erro no servidor" });
@@ -146,10 +158,13 @@ app.post("/register", async (req, res) => {
       console.error(err);
       return res.status(501).json({ message: "Erro ao registrar usuário" });
     }  
-  
+    
     return res.status(201).json({ message: "Usuário registrado com sucesso" });
   });
 });
+// ------------FIM DA ROTA DE REGISTRO------------ // 
+
+
 
 //INICIA SERVIDOR
 
