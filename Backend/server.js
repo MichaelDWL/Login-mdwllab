@@ -7,6 +7,9 @@ import db from "./db.js"; // Conexão com o banco de dados
 import { comparePassword,hashPassword } from "./app.js"; // Função para comparar senhas
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import { generateKey } from "crypto";
+
+import { sendEmail } from "./app.js";
 
 dotenv.config();
 
@@ -43,6 +46,7 @@ app.post("/login", (req, res) => {
     `SELECT password FROM users WHERE email = ?`,
     [email],
     async (err, results) => {
+      
         if (err) {
             console.error(err);
             return results.status(500).json({ message: "Erro no servidor" });
@@ -58,11 +62,25 @@ app.post("/login", (req, res) => {
         if (isPasswordValid === false) {
             return res.status(401).json({ message: "Usuário ou senha inválidos" }); 
         }
+
+          
+        let generatedCode = null; // código temporário
+
+        //gera código de 5 dígitos
+        generatedCode = String(Math.floor(10000 + Math.random() * 90000));
+        
+        console.log(generatedCode, email);
+        
+        // envia e-mail
+        
+        sendEmail(email, generatedCode);
+        
         
         return res.status(200).json({ message: 'Login bem-sucedido!' });
     
     }
   );
+
 
 });
 
@@ -129,10 +147,13 @@ app.post("/register", async (req, res) => {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*]).{8,}$/;
    
     // Verifica se existe cadastro com esse email 
-    db.query("SELECT EMAIL FORM USERS WHERE EMAIL = ?", [email], async (err, results) => {    
-      if (results.length != 0) { 
+    db.query("SELECT EMAIL FORM USERS WHERE EMAIL = ?", [email], (err, results) => {   
+
+      
+      if (results !== undefined && results.length > 0) { 
         return res.json({message: "Email já cadastrado, insira um email valido"})
       }
+
     }) 
     
     // Verifica se a senha atende os requisitos minimos 
@@ -164,6 +185,17 @@ app.post("/register", async (req, res) => {
 });
 // ------------FIM DA ROTA DE REGISTRO------------ // 
 
+
+
+// ------------Rota Atenticação de 2 fatores------------ //
+app.post("/verify", (req, res) => {
+  const { code } = req.body;
+  
+  if (code === generatedCode) {
+    return res.status(200).json({ success: true, message: "✅ Acesso liberado!" });
+  }
+
+})
 
 
 //INICIA SERVIDOR

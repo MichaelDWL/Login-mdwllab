@@ -26,7 +26,7 @@ form.addEventListener("submit", async (e) => {
 
     if (res.ok && data.success) {
       alert("Acesso liberado!");
-      window.location.href = "index.html"; // redireciona para home/dashboard
+      window.location.href = "Frontend/src/pages/home/home.html"; // redireciona para home/dashboard
     } else {
       alert(data.message || "Código inválido!");
     }

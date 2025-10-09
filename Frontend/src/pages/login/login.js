@@ -26,6 +26,7 @@ form.addEventListener("submit", async (e) => {
     } catch (error) {
         alert("Erro ao conectar com o servidor");
       }
+      
 });
 
 function togglePassword() {
