@@ -4,30 +4,27 @@
 import nodemailer from "nodemailer";
 
 export async function sendEmail(email, generatedCode) {
-
+  try {
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false,
+      service: "gmail",
       auth: {
         user: "factortwo900@gmail.com",
-        pass: "2214MDWL" // senha de app do Gmail
+        pass: "bfhe dtzc utoq ywez" // senha de app do Gmail
       },
     });
 
-     try {
-        await transporter.sendMail({
+    await transporter.sendMail({
           from: process.env.gmail_user,
           to: [email],
           subject: "Seu código de verificação",
           text: `Seu código é: ${generatedCode}`,
         });
-        return res.json({ success: true, message: "Código de verificação enviado para o e-mail" });
+  return ({ success: true, message: "Código de verificação enviado para o e-mail" });
 
-      } catch (error) {
-      console.error("Erro ao enviar email:", error);
-      return res.status(500).json({ success: false, message: "Erro ao enviar e-mail" });
-      }
+  } catch (error) {
+    console.error("Erro ao enviar email:", error);
+    return ({ success: false, message: "Erro ao enviar e-mail" });
+    }
 
 }
 

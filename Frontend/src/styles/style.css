@@ -195,3 +195,7 @@ button:hover {
 .password-hint {
     color: green;
 }
+
+#timer{
+    margin-top: 10px; 
+    color: black;}
