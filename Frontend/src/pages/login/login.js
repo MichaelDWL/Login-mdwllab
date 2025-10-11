@@ -2,30 +2,53 @@
 const form = document.getElementById("login-form");
 
 form.addEventListener("submit", async (e) => {
-    e.preventDefault(); // Evitar o comportamento padrão do formulário para controlar pelo JavaScript
+  e.preventDefault();
 
-    const email = form.querySelector("input[name = 'email']").value.trim(); // trim() remove espaços em branco
-    const password = form.querySelector("input[name = 'password']").value;
+  const email = form.querySelector("input[name='email']").value.trim();
+  const password = form.querySelector("input[name='password']").value;
 
-    try {
-        const res = await fetch("http://localhost:3000/login", {
+  try {
+    const res = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+      credentials: "include",
+    });
+
+    const data = await res.json(); // <-- login
+
+    if (res.ok) {
+      localStorage.setItem("userEmail", email);
+
+      // Agora envia o código
+      try {
+        const codeRes = await fetch("http://localhost:3000/send-code", {
           method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({ email, password }),
-          credentials: 'include' // Incluir cookies na requisição
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+          credentials: "include",
         });
 
-        const data = await res.json(); // Supondo que o backend retorne uma resposta JSON
+        const codeData = await codeRes.json(); // <-- nome correto da variável
 
-        if (res.ok) { 
-          alert(data.message); // Exibir mensagem de sucesso
-          window.location.href = "/Frontend/src/pages/twofactors/twofactors.html"; // Redirecionar para a página home
+        if (codeRes.ok && codeData.success) {
+          alert("Código enviado ao e-mail!");
+          window.location.href = "/Frontend/src/pages/twofactors/twofactors.html";
         } else {
-          alert(data.message || "Erro no login"); // Exibir mensagem de erro
+          alert(codeData.message || "Erro ao enviar o código.");
         }
-    } catch (error) {
+      } catch (err) {
+        console.error("Erro ao enviar código:", err);
         alert("Erro ao conectar com o servidor");
       }
+
+    } else {
+      alert(data.message || "Erro no login");
+    }
+  } catch (error) {
+    console.error("Erro no login:", error);
+    alert("Erro ao conectar com o servidor");
+  }
 });
 
 function togglePassword() {
@@ -43,7 +66,4 @@ function togglePassword() {
       }
     }
 
-function criptografarSenha() {
 
-
-}

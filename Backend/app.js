@@ -1,52 +1,35 @@
 //APIS 
 //autenticação 2 fatores
-// Conctar com o backend para enviar o email de dois fatores
-// autenticação 2 fatores
-// import express from "express";
-// import nodemailer from "nodemailer";
 
-// const app = express();
-// app.use(express.json());
+import nodemailer from "nodemailer";
 
-// let generatedCode = null; // código temporário
+export async function sendEmail(email, generatedCode) {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "factortwo900@gmail.com",
+        pass: "bfhe dtzc utoq ywez" // senha de app do Gmail
+      },
+    });
 
-//     // gera código de 5 dígitos
-//     generatedCode = String(Math.floor(10000 + Math.random() * 90000));
+    await transporter.sendMail({
+          from: process.env.gmail_user,
+          to: [email],
+          subject: "Seu código de verificação",
+          text: `Seu código é: ${generatedCode}`,
+        });
+  return ({ success: true, message: "Código de verificação enviado para o e-mail" });
 
-//     // envia e-mail
-//     const transporter = nodemailer.createTransport({
-//       host: "smtp.gmail.com",
-//       port: 587,
-//       secure: false,
-//       auth: {
-//         user: "seuemail@gmail.com",
-//         pass: "suasenha" // senha de app do Gmail
-//       },
-//     });
+  } catch (error) {
+    console.error("Erro ao enviar email:", error);
+    return ({ success: false, message: "Erro ao enviar e-mail" });
+    }
 
-//     try {
-//       await transporter.sendMail({
-//         from: "seuemail@gmail.com",
-//         to: "destinatario@teste.com",
-//         subject: "Seu código de verificação",
-//         text: `Seu código é: ${generatedCode}`,
-//       });
+}
 
-//       return res.json({ success: true, message: "Código enviado para o e-mail" });
-//     } catch (error) {
-//       console.error("Erro ao enviar email:", error);
-//       return res.status(500).json({ success: false, message: "Erro ao enviar e-mail" });
-//     }
 
-// // Rota de verificação do código
-// app.post("/verify", (req, res) => {
-//   const { code } = req.body;
 
-//   if (code === generatedCode) {
-//     return res.json({ success: true, message: "✅ Acesso liberado!" });
-//   }
-//   return res.status(400).json({ success: false, message: "❌ Código inválido" });
-// });
 
 // parte do Thalys
 
