@@ -40,6 +40,7 @@ function startCountdown() {
   resendBtn.disabled = true;
   remainingTime = 60;
   timerDisplay.textContent = `Reenviar código em ${remainingTime}s`;
+  resendBtn.style.opacity = "30%";
 
   countdown = setInterval(() => {
     remainingTime--;
@@ -49,6 +50,7 @@ function startCountdown() {
       clearInterval(countdown);
       resendBtn.disabled = false;
       timerDisplay.textContent = "Reenviar código";
+      resendBtn.style.opacity = "100%";
     }
   }, 1000);
 }

@@ -92,6 +92,7 @@ body {
 
 button {
     width: 100%;
+    max-width: 200px;
     padding: 12px;
 
     border: none;
@@ -110,6 +111,10 @@ button:hover {
     background: #4a006e;
 }
 
+#resend-btn {
+    width: 100px;    
+}
+
 /* PAGE - TWOFACTORS */
 
 .code-form {
@@ -126,6 +131,7 @@ button:hover {
     width: 50px;
     padding: 20px;
     margin-top: 30px;
+    margin-bottom: 30px;
     border: 1px solid #ccc;
     border-radius: 15px;
     font-size: 16px;
