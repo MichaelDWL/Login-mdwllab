@@ -8,6 +8,7 @@ import { comparePassword,hashPassword } from "./app.js"; // Função para compar
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import { generateKey } from "crypto";
+import session from "express-session";
 
 import { sendEmail } from "./app.js";
 import e from "express";
@@ -21,6 +22,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const port = 3000;
 const secret = process.env.JWT_SECRET; // Senha secreta para assinar o token JWT
+const max_tentativas = 5; // Número máximo de tentativas de login
+const timer_block = 5 * 60 * 1000; // Tempo de bloqueio em milissegundos (5 minutos)
 
 let generatedCode = null; // código temporário
 
@@ -36,6 +39,13 @@ app.use(
 );
 
 app.use(express.json());
+app.use(session({
+  secret: "segredo-super-seguro",
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } //se HTTPS, mude pra true
+}));
+
 app.use(cookieParser());
 
 setInterval(() => {
@@ -46,27 +56,49 @@ setInterval(() => {
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
+  
+  if(!req.session.tentativas) { 
+    req.session.tentativas = 0;
+    req.session.bloqueadoAte = null;
+  }
+  
+  // Verifica se o usuario está bloqueado 
+  if (req.session.bloqueadoAte && Date.now() < req.session.bloqueadoAte) {
+    const tempoRestante = Math.ceil((req.session.bloqueadoAte - Date.now()) / 1000);
+    return res.status(403).json({message: "Usuário bloqueado. Tente novamente mais tarde !"})
+  }
 
+  // Se n tiver, ele vai verificar se o emaiil e senha está correto 
   try {
     const [results] = await db
       .promise()
       .query(`SELECT id, password FROM users WHERE email = ?`, [email]);
 
     if (results.length === 0) {
+      req.session.tentativas++;
       return res.status(401).json({ success: false, message: "Usuário ou senha inválidos" });
     }
 
     const user = results[0];
     const isPasswordValid = await comparePassword(password, user.password);
 
+    // Valida a Senha 
     if (!isPasswordValid) {
+      req.session.tentativas++;
       return res.status(401).json({ success: false, message: "Usuário ou senha inválidos" });
     }
 
-    // Login válido — pede autenticação de dois fatores
+    // Bloqueia se ultrapassar o limite
+    if (req.session.tentativas >= max_tentativas) {
+      req.session.bloqueadoAte = Date.now() + timer_block;
+      return res.status(403).json({ message: "Número máximo de tentativas excedido, Acesso bloqueado." });
+    }
+
+    // Login válido — pede autenticação de dois fatores e zera as tentativas de login 
+    req.session.tentativas = 0;
     return res.status(200).json({
       success: true,
-      message: "Login válido. Código de verificação necessário.",
+      message: "Login bem Sucedido !",
       userId: user.id,email
     });
 
@@ -88,8 +120,6 @@ app.post("/send-code", async (req, res) => {
   console.log(email, userId);
 
   res.cookie("pending_user", email, { httpOnly: true, sameSite: "lax" });
-
-
 
     try {
 
