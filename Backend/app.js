@@ -25,7 +25,6 @@ export async function sendEmail(email, generatedCode) {
     console.error("Erro ao enviar email:", error);
     return ({ success: false, message: "Erro ao enviar e-mail" });
     }
-
 }
 
 // parte do Thalys
