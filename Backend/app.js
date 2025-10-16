@@ -28,9 +28,6 @@ export async function sendEmail(email, generatedCode) {
 
 }
 
-
-
-
 // parte do Thalys
 
 //bcrypt - criptografia de senhas
