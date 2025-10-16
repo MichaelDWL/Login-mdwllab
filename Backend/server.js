@@ -30,7 +30,7 @@ let generatedCode = null; // código temporário
 
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500"], // permita ambos
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500"],
     credentials: true
   })
 );
@@ -87,10 +87,9 @@ app.post("/send-code", async (req, res) => {
   const {email, userId} = req.body;
   console.log(email, userId);
 
-  res.cookie("pending_user", email, {
-  httpOnly: true,
-  sameSite: "lax"
-  });
+  res.cookie("pending_user", email, { httpOnly: true, sameSite: "lax" });
+
+
 
     try {
 
@@ -128,6 +127,13 @@ app.post("/send-code", async (req, res) => {
 app.get("/protected", authenticateToken, (req, res) => {
   res.json({ message: `Bem-vindo, ${req.user.email}!` });
 });
+
+app.get("/home", authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "Frontend", "src", "pages", "home", "home.html"));
+  res.sendFile(filePath);
+});
+
+
 // ------------FIM Rota protegida------------ // 
 
 // ------------ROTA LOGOUT------------ // 
@@ -151,6 +157,7 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+
 
 // ------------Rota de Registro------------ //  
 
@@ -226,7 +233,7 @@ app.post("/verify", (req, res) => {
       const token = jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: "1h" });
 
       res.cookie("token", token, { httpOnly: true });
-      res.clearCookie("pending_user"); // <- limpa o cookie
+      // res.clearCookie("pending_user"); // <- limpa o cookie
       return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
 
     }
