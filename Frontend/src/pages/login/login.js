@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
   const password = form.querySelector("input[name='password']").value;
 
   try {
-    const res = await fetch("http://localhost:3000/login", {
+    const res = await fetch(`${API_URL}/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -22,7 +22,7 @@ form.addEventListener("submit", async (e) => {
 
       // Agora envia o código
       try {
-        const codeRes = await fetch("http://localhost:3000/send-code", {
+        const codeRes = await fetch(`${API_URL}/send-code`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),

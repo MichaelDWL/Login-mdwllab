@@ -17,9 +17,10 @@ form.addEventListener("submit", async (e) => {
             try {
                 
 
-            const res = await fetch("http://localhost:3000/register", { 
+            const res = await fetch(`${API_URL}/register`, { 
             method: "POST", 
             headers: {"Content-Type": "application/json"}, 
+            
             body: JSON.stringify({ email, username, password }), 
             credentials: 'include' // Incluir cookies na requisição 
             });

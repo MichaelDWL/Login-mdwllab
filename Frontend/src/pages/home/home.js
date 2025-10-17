@@ -1,5 +1,5 @@
     // Verifica se o usuário tem sessão ativa no servidor
-    fetch("http://localhost:3000/protected", {
+    fetch(`${API_URL}protected`, {
       method: "GET",
       credentials: "include"
     })
@@ -16,7 +16,7 @@
 
     // Botão de logout
     document.getElementById("logout-btn").addEventListener("click", () => {
-      fetch("http://localhost:3000/logout", {
+      fetch(`${API_URL}/logout`, {
         method: "POST",
         credentials: "include"
       }).then(() => {

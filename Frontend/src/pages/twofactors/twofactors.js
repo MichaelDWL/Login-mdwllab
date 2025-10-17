@@ -63,7 +63,7 @@ resendBtn.addEventListener("click", async () => {
   resendBtn.disabled = true;
 
   try {
-      const res = await fetch("http://localhost:3000/send-code", {
+      const res = await fetch(`${API_URL}/send-code`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({email}),
@@ -103,7 +103,7 @@ form.addEventListener("submit", async (e) => {
   
   try {
     
-      const res = await fetch("http://localhost:3000/verify", {
+      const res = await fetch(`${API_URL}/verify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ code }),
