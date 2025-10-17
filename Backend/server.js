@@ -7,7 +7,6 @@ import db from "./db.js"; // Conexão com o banco de dados
 import { comparePassword,hashPassword } from "./app.js"; // Função para comparar senhas
 import { fileURLToPath } from "url";
 import dotenv from "dotenv";
-import { generateKey } from "crypto";
 import session from "express-session";
 
 import { sendEmail } from "./app.js";
