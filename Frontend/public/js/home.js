@@ -1,3 +1,7 @@
+  const API_URL = window.location.hostname.includes("localhost")
+  ? "http://localhost:3000"
+  : "https://login-mdwllab.onrender.com";
+    
     // Verifica se o usuário tem sessão ativa no servidor
     fetch(`${API_URL}protected`, {
       method: "GET",
@@ -6,12 +10,12 @@
     .then(res => {
       if (!res.ok) {
         alert("Acesso negado. Faça login primeiro.");
-        window.location.href = "/Frontend/src/pages/login/index.html";
+        window.location.href = "/Frontend/public/index.html";
       }
     })
     .catch(() => {
       alert("Erro ao verificar sessão. Faça login novamente.");
-      window.location.href = "/Frontend/src/pages/login/index.html";
+      window.location.href = "/Frontend/public/index.html";
     });
 
     // Botão de logout
@@ -20,7 +24,7 @@
         method: "POST",
         credentials: "include"
       }).then(() => {
-        window.location.href = "/Frontend/src/pages/login/index.html";
+        window.location.href = "/Frontend/public/index.html";
       });
     });
 

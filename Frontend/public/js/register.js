@@ -1,3 +1,8 @@
+
+const API_URL = window.location.hostname.includes("localhost")
+  ? "http://localhost:3000"
+  : "https://login-mdwllab.onrender.com";
+  
 const form = document.getElementById("register-form"); 
 
 form.addEventListener("submit", async (e) => { 
@@ -29,7 +34,7 @@ form.addEventListener("submit", async (e) => {
 
             if (res.ok) { 
             alert(data.message); // Exibir mensagem de sucesso
-            window.location.href = "/Frontend/src/pages/login/index.html"; // Redirecionar para a página home
+            window.location.href = "/Frontend/public/index.html"; // Redirecionar para a página home
             } else {
             alert(data.message || "Erro no registro"); // Exibir mensagem de erro
             }

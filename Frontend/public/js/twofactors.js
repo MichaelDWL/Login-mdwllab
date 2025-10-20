@@ -1,3 +1,9 @@
+
+const API_URL = window.location.hostname.includes("localhost")
+  ? "https://localhost:3000"
+  : "https://login-mdwllab.onrender.com";
+
+
 // Seleciona o formulário
 const form = document.getElementById("code-form");
 const resendBtn = document.getElementById("resend-btn");
@@ -10,7 +16,7 @@ const email = localStorage.getItem("userEmail");
   
   if (!email) {
   alert("Email não encontrado. Faça login novamente.");
-  window.location.href = "/Frontend/src/pages/login/login.html";
+  window.location.href = "/Frontend/public/login.html";
   }
 
 
@@ -117,7 +123,7 @@ form.addEventListener("submit", async (e) => {
     if (res.ok && data.success) {
       alert("Acesso liberado!");
       localStorage.removeItem("userEmail"); // lImpa o email armazenado
-      window.location.href = "/Frontend/src/pages/home/home.html"; // redireciona para home/dashboard
+      window.location.href = "/Frontend/public/home.html"; // redireciona para home/dashboard
     } else {
       alert(data.message || "Código inválido!");
     }

@@ -10,7 +10,6 @@ import dotenv from "dotenv";
 import session from "express-session";
 
 import { sendEmail } from "./app.js";
-import e from "express";
 
 dotenv.config();
 
@@ -26,16 +25,13 @@ const timer_block = 5 * 60 * 1000; // Tempo de bloqueio em milissegundos (5 minu
 
 let generatedCode = null; // código temporário
 
-const API_URL = window.location.hostname.includes("localhost")
-  ? "https://localhost:3000"
-  : "https://login-mdwllab.onrender.com";
 
 // Middleware
 
 
 app.use(
   cors({
-    origin: ["https://127.0.0.1:5500", "https://localhost:5500","https://login-security-i3ua.onrender.com"],
+    origin: ["http://127.0.0.1:5500", "http://localhost:5500","https://loginmdwl.netlify.app"],
     credentials: true
   })
 );

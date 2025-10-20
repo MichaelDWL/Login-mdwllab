@@ -1,4 +1,9 @@
 //Conctar com o backend para enviar os dados do login
+
+const API_URL = window.location.hostname.includes("localhost")
+  ? "http://localhost:3000"
+  : "https://login-mdwllab.onrender.com";
+
 const form = document.getElementById("login-form");
 
 form.addEventListener("submit", async (e) => {
@@ -33,7 +38,7 @@ form.addEventListener("submit", async (e) => {
 
         if (codeRes.ok && codeData.success) {
           alert("Código enviado ao e-mail!");
-          window.location.href = "/Frontend/src/pages/twofactors/twofactors.html";
+          window.location.href = "/Frontend/public/twofactors.html";
         } else {
           alert(codeData.message || "Erro ao enviar o código.");
         }
