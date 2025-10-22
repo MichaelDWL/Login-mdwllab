@@ -1,7 +1,9 @@
-  const API_URL = window.location.hostname.includes("localhost")
+// Detecta se está em ambiente local ou de produção
+const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+const API_URL = isLocal
   ? "http://localhost:3000"
   : "https://login-mdwllab.onrender.com";
-    
+
     // Verifica se o usuário tem sessão ativa no servidor
     fetch(`${API_URL}protected`, {
       method: "GET",

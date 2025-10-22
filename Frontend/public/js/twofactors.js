@@ -1,8 +1,9 @@
 
-const API_URL = window.location.hostname.includes("localhost")
-  ? "https://localhost:3000"
+// Detecta se está em ambiente local ou de produção
+const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
+const API_URL = isLocal
+  ? "http://localhost:3000"
   : "https://login-mdwllab.onrender.com";
-
 
 // Seleciona o formulário
 const form = document.getElementById("code-form");
