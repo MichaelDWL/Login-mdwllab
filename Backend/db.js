@@ -3,20 +3,17 @@ import mysql from "mysql2";
 import dotenv from "dotenv";
 dotenv.config();
 
-const db = mysql.createConnection({
+// Criar um pool de conexões
+const pool = mysql.createPool({
   host: process.env.MYSQLHOST,
   user: process.env.MYSQLUSER,
   password: process.env.MYSQLPASSWORD,
   database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT, // Railway usa uma porta diferente de 3306
+  port: process.env.MYSQLPORT,
+  waitForConnections: true,
+  connectionLimit: 10, // até 10 conexões simultâneas
+  queueLimit: 0,
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error("Erro ao conectar ao banco:", err);
-    return;
-  }
-  console.log("Conectado ao banco de dados MySQL!");
-});
-
-export default db;
+// Exportar a versão com suporte a promises
+export default pool.promise();
