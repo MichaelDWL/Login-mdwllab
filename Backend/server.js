@@ -18,7 +18,7 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
-const port = 3000;
+const port = process.env.PORT ||3000;
 const secret = process.env.JWT_SECRET; // Senha secreta para assinar o token JWT
 const max_tentativas = 5; // Número máximo de tentativas de login
 const timer_block = 5 * 60 * 1000; // Tempo de bloqueio em milissegundos (5 minutos)
@@ -27,7 +27,6 @@ let generatedCode = null; // código temporário
 
 
 // Middleware
-
 
 app.use(
   cors({
@@ -271,4 +270,4 @@ app.post("/verify", (req, res) => {
 
 //INICIA SERVIDOR
 
-app.listen(port, () => console.log("Server is running on port 3000"));
+app.listen(port, () => console.log(`Server is running on port ${port}`));
