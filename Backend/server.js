@@ -123,9 +123,8 @@ app.post("/send-code", async (req, res) => {
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // expira em 5 min
 
     // Atualiza o banco
-    await db
-      .promise().query(
-        "UPDATE users SET otp_code = ?, otp_expires = ? WHERE email = ?",
+    await db.query( 
+        "UPDATE users SET opt_code = ?, opt_expires = ? WHERE email = ?",
         [code, expiresAt, email]
       );
 
@@ -241,7 +240,7 @@ app.post("/verify", (req, res) => {
   
   console.log(pendingEmail);
   db.query(
-    "SELECT * FROM users WHERE email = ? AND otp_code = ? AND otp_expires > NOW()",
+    "SELECT * FROM users WHERE email = ? AND opt_code = ? AND opt_expires > NOW()",
     [pendingEmail, code],
 
     
@@ -252,7 +251,7 @@ app.post("/verify", (req, res) => {
       const user = results[0];
 
       // Limpa o código (pra não ser reutilizado)
-      db.query("UPDATE users SET otp_code = NULL, otp_expires = NULL WHERE id = ?", [user.id]);
+      db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE id = ?", [user.id]);
 
       // Gera token JWT
       const token = jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: "1h" });
