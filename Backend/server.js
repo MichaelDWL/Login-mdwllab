@@ -67,9 +67,7 @@ app.post("/login", async (req, res) => {
 
   // Se n tiver, ele vai verificar se o emaiil e senha está correto 
   try {
-    const [results] = await db
-      .promise()
-      .query(`SELECT id, password FROM users WHERE email = ?`, [email]);
+  const [results] =  await db.query("SELECT id, password FROM users WHERE email = ?", [email]);
 
     if (results.length === 0) {
       req.session.tentativas++;
