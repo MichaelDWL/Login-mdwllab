@@ -30,7 +30,13 @@ let generatedCode = null; // código temporário
 
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5500", "http://localhost:5500","https://loginmdwl.netlify.app"],
+    origin: [
+      "http://127.0.0.1:5500",
+      "http://localhost:5500",
+      "https://loginmdwl.netlify.app" 
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
 );
@@ -114,7 +120,12 @@ app.post("/send-code", async (req, res) => {
   const {email, userId} = req.body;
   console.log(email, userId);
 
-  res.cookie("pending_user", email, { httpOnly: true, sameSite: "lax" });
+  res.cookie("pending_user", email, {
+  httpOnly: true,
+  sameSite: "none", //  importante para cross-domain
+  secure: true      //  necessário no Render (HTTPS)
+
+});
 
     try {
 
@@ -133,7 +144,11 @@ app.post("/send-code", async (req, res) => {
 
     if (result.success) {
       console.log(code);
-      res.cookie("pending_user", email, { httpOnly: true });
+      res.cookie("pending_user", email, {
+      httpOnly: true,
+      sameSite: "none", //  importante para cross-domain
+      secure: true      //  necessário no Render (HTTPS)
+});
       return res.status(200).json({ success: true, message: "Código enviado ao e-mail." });
     } else {
       return res.status(500).json({ success: false, message: "Erro ao enviar e-mail." });
