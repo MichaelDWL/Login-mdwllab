@@ -65,7 +65,7 @@ app.post("/login", async (req, res) => {
     return res.status(403).json({message: "Usuário bloqueado. Tente novamente mais tarde !"})
   }
 
-  // Se n tiver, ele vai verificar se o emaiil e senha está correto 
+  // Se n tiver, ele vai verificar se o email e senha está correto 
   try {
   const [results] =  await db.query("SELECT id, password FROM users WHERE email = ?", [email]);
 
@@ -190,7 +190,7 @@ app.post("/register", async (req, res) => {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*]).{8,}$/;
    
     // Verifica se existe cadastro com esse email 
-    db.query("SELECT EMAIL FROM USERS WHERE EMAIL = ?", [email], (err, results) => {   
+    db.query("SELECT EMAIL FROM users WHERE EMAIL = ?", [email], (err, results) => {   
 
       
       if (results !== undefined && results.length > 0) { 
