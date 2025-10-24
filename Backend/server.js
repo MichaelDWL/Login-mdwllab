@@ -275,7 +275,6 @@ app.post("/verify", (req, res) => {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        httpOnly: true 
       });
       // res.clearCookie("pending_user"); // <- limpa o cookie
       return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
