@@ -26,7 +26,7 @@ const API_URL = isLocal
         method: "POST",
         credentials: "include"
       }).then(() => {
-        window.location.href = "/Frontend/public/index.html";
+        window.location.href = "/index.html";
       });
     });
 

@@ -40,7 +40,7 @@ form.addEventListener("submit", async (e) => {
 
         if (codeRes.ok && codeData.success) {
           alert("Código enviado ao e-mail!");
-          window.location.href = "/Frontend/public/twofactors.html";
+          window.location.href = "/twofactors.html";
         } else {
           alert(codeData.message || "Erro ao enviar o código.");
         }

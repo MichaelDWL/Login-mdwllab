@@ -124,7 +124,7 @@ form.addEventListener("submit", async (e) => {
     if (res.ok && data.success) {
       alert("Acesso liberado!");
       localStorage.removeItem("userEmail"); // lImpa o email armazenado
-      window.location.href = "/Frontend/public/home.html"; // redireciona para home/dashboard
+      window.location.href = "/home.html"; // redireciona para home/dashboard
     } else {
       alert(data.message || "Código inválido!");
     }
