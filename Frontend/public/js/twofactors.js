@@ -17,7 +17,7 @@ const email = localStorage.getItem("userEmail");
   
   if (!email) {
   alert("Email não encontrado. Faça login novamente.");
-  window.location.href = "/Frontend/public/login.html";
+  window.location.href = "/login.html";
   }
 
 

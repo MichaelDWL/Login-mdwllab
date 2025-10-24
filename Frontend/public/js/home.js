@@ -12,12 +12,12 @@ const API_URL = isLocal
     .then(res => {
       if (!res.ok) {
         alert("Acesso negado. Faça login primeiro.");
-        window.location.href = "/Frontend/public/index.html";
+        window.location.href = "/index.html";
       }
     })
     .catch(() => {
       alert("Erro ao verificar sessão. Faça login novamente.");
-      window.location.href = "/Frontend/public/index.html";
+      window.location.href = "/index.html";
     });
 
     // Botão de logout
