@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendEmail(email, generatedCode) {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Login MDWL <no-reply@loginmdwl.com>",
+      from: "Login MDWL <onboarding@resend.dev>",
       to: email,
       subject: "Seu código de verificação",
       html: `
