@@ -123,8 +123,8 @@ app.post("/send-code", async (req, res) => {
   res.cookie("pending_user", email, {
   httpOnly: true,
   sameSite: "none", //  importante para cross-domain
-  secure: true,      //  necessário no Render (HTTPS)
-  domain: "https://login-mdwllab.onrender.com"
+  secure: true      //  necessário no Render (HTTPS)
+
 });
 
     try {
@@ -138,7 +138,6 @@ app.post("/send-code", async (req, res) => {
         "UPDATE users SET opt_code = ?, opt_expires = ? WHERE email = ?",
         [code, expiresAt, email]
       );
-
     // Envia o e-mail com o código
     const result = await sendEmail(email, code);
 
@@ -147,8 +146,7 @@ app.post("/send-code", async (req, res) => {
       res.cookie("pending_user", email, {
       httpOnly: true,
       sameSite: "none", //  importante para cross-domain
-      secure: true,      //  necessário no Render (HTTPS)
-      domain: "https://login-mdwllab.onrender.com"
+      secure: true      //  necessário no Render (HTTPS)
 });
       return res.status(200).json({ success: true, message: "Código enviado ao e-mail." });
     } else {
@@ -250,6 +248,11 @@ app.post("/register", async (req, res) => {
 app.post("/verify", (req, res) => {
   const { code } = req.body;
   const pendingEmail = req.cookies.pending_user;
+
+  if (!pendingEmail) {
+  console.error("❌ Nenhum cookie 'pending_user' recebido!");
+  return res.status(400).json({ message: "Cookie ausente. Faça login novamente." });
+  }
   
   console.log("Todos os cookies:", req.cookies); // 👈 veja se o cookie veio
   console.log("pending_user:", req.cookies.pending_user); // 👈 e se tem o email esperado
@@ -276,7 +279,6 @@ app.post("/verify", (req, res) => {
         httpOnly: true,
         sameSite: "none",
         secure: true,
-        domain: "https://login-mdwllab.onrender.com"
       });
       // res.clearCookie("pending_user"); // <- limpa o cookie
       return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
