@@ -18,6 +18,8 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express();
+app.set("trust proxy", 1);
+
 const port = process.env.PORT ||3000;
 const secret = process.env.JWT_SECRET; // Senha secreta para assinar o token JWT
 const max_tentativas = 5; // Número máximo de tentativas de login
@@ -253,7 +255,7 @@ app.post("/verify", (req, res) => {
   console.error("❌ Nenhum cookie 'pending_user' recebido!");
   return res.status(400).json({ message: "Cookie ausente. Faça login novamente." });
   }
-  
+
   console.log("Todos os cookies:", req.cookies); // 👈 veja se o cookie veio
   console.log("pending_user:", req.cookies.pending_user); // 👈 e se tem o email esperado
   
