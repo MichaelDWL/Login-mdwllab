@@ -113,8 +113,8 @@ form.addEventListener("submit", async (e) => {
       const res = await fetch(`${API_URL}/verify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code }),
-      credentials: "include" 
+      credentials: "include", 
+      body: JSON.stringify({ code })
     });
 
     const data = await res.json();

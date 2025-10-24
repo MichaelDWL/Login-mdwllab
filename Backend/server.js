@@ -52,8 +52,8 @@ app.use(session({
 app.use(cookieParser());
 
 setInterval(() => {
-  db.query("UPDATE users SET verification_code = NULL, code_expires = NULL WHERE code_expires < NOW()");
-}, 10 * 60 * 1000); // Limpa códigos expirados a cada 10 minutos
+  db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE opt_expires < NOW()");
+}, 10 * 60 * 1000);
 
 // ------------Rota de Login------------ //
 
