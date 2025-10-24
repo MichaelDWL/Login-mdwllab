@@ -123,8 +123,8 @@ app.post("/send-code", async (req, res) => {
   res.cookie("pending_user", email, {
   httpOnly: true,
   sameSite: "none", //  importante para cross-domain
-  secure: true      //  necessário no Render (HTTPS)
-
+  secure: true,      //  necessário no Render (HTTPS)
+  domain: "https://login-mdwllab.onrender.com"
 });
 
     try {
@@ -147,7 +147,8 @@ app.post("/send-code", async (req, res) => {
       res.cookie("pending_user", email, {
       httpOnly: true,
       sameSite: "none", //  importante para cross-domain
-      secure: true      //  necessário no Render (HTTPS)
+      secure: true,      //  necessário no Render (HTTPS)
+      domain: "https://login-mdwllab.onrender.com"
 });
       return res.status(200).json({ success: true, message: "Código enviado ao e-mail." });
     } else {
@@ -275,6 +276,7 @@ app.post("/verify", (req, res) => {
         httpOnly: true,
         sameSite: "none",
         secure: true,
+        domain: "https://login-mdwllab.onrender.com"
       });
       // res.clearCookie("pending_user"); // <- limpa o cookie
       return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
