@@ -271,7 +271,12 @@ app.post("/verify", (req, res) => {
       // Gera token JWT
       const token = jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: "1h" });
 
-      res.cookie("token", token, { httpOnly: true });
+      res.cookie("token", token, { 
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        httpOnly: true 
+      });
       // res.clearCookie("pending_user"); // <- limpa o cookie
       return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
 
