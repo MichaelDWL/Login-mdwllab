@@ -1,30 +1,40 @@
 //APIS 
 //autenticação 2 fatores
 
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function sendEmail(email, generatedCode) {
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "factortwo900@gmail.com",
-        pass: "bfhe dtzc utoq ywez" // senha de app do Gmail
-      },
+    const { data, error } = await resend.emails.send({
+      from: "Login MDWL <no-reply@loginmdwl.com>",
+      to: email,
+      subject: "Seu código de verificação",
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+          <h2>Confirmação de Login</h2>
+          <p>Seu código de verificação é:</p>
+          <h1 style="background:#f4f4f4; display:inline-block; padding:10px 20px; border-radius:8px; color:#222;">
+            ${generatedCode}
+          </h1>
+          <p>O código expira em 5 minutos.</p>
+          <p>Se você não solicitou este código, ignore este e-mail.</p>
+        </div>
+      `,
     });
 
-    await transporter.sendMail({
-          from: process.env.gmail_user,
-          to: [email],
-          subject: "Seu código de verificação",
-          text: `Seu código é: ${generatedCode}`,
-        });
-  return ({ success: true, message: "Código de verificação enviado para o e-mail" });
-
-  } catch (error) {
-    console.error("Erro ao enviar email:", error);
-    return ({ success: false, message: "Erro ao enviar e-mail" });
+    if (error) {
+      console.error("Erro Resend:", error);
+      return { success: false };
     }
+
+    console.log("E-mail enviado com sucesso:", data.id);
+    return { success: true, message: "Código enviado para o e-mail." };
+  } catch (err) {
+    console.error("Erro ao enviar e-mail:", err);
+    return { success: false, message: "Erro ao enviar e-mail." };
+  }
 }
 
 // parte do Thalys
