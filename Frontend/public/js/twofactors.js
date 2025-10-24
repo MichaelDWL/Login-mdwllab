@@ -109,7 +109,6 @@ form.addEventListener("submit", async (e) => {
 
   
   try {
-    
       const res = await fetch(`${API_URL}/verify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -27,7 +27,6 @@ const timer_block = 5 * 60 * 1000; // Tempo de bloqueio em milissegundos (5 minu
 
 let generatedCode = null; // código temporário
 
-
 // Middleware
 
 app.use(
@@ -35,7 +34,7 @@ app.use(
     origin: [
       "http://127.0.0.1:5500",
       "http://localhost:5500",
-      "https://loginmdwl.netlify.app" 
+      "https://loginmdwl.onrender.com" 
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -252,7 +251,7 @@ app.post("/verify", (req, res) => {
   const pendingEmail = req.cookies.pending_user;
 
   if (!pendingEmail) {
-  console.error("❌ Nenhum cookie 'pending_user' recebido!");
+  console.error(" Nenhum cookie 'pending_user' recebido!");
   return res.status(400).json({ message: "Cookie ausente. Faça login novamente." });
   }
 
