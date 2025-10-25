@@ -52,9 +52,9 @@ app.use(session({
 
 app.use(cookieParser());
 
-// setInterval(() => {
-//   db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE opt_expires < NOW()");
-// }, 10 * 60 * 1000);
+setInterval(() => {
+  db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE opt_expires < NOW()");
+}, 10 * 60 * 1000);
 
 // ------------Rota de Login------------ //
 
@@ -132,6 +132,7 @@ app.post("/send-code", async (req, res) => {
 
     // Gera o código de 5 dígitos
     const code = String(Math.floor(10000 + Math.random() * 90000));
+
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // expira em 5 min
 
     // Atualiza o banco
@@ -246,8 +247,10 @@ app.post("/register", async (req, res) => {
 
 
 // ------------Rota Atenticação de 2 fatores------------ //
-app.post("/verify", (req, res) => {
+app.post("/verify", async (req, res) => {
+
   const { code } = req.body;
+  
   const pendingEmail = req.cookies.pending_user;
 
   if (!pendingEmail) {
@@ -255,25 +258,24 @@ app.post("/verify", (req, res) => {
   return res.status(400).json({ message: "Cookie ausente. Faça login novamente." });
   }
 
-  console.log("Todos os cookies:", req.cookies); // 👈 veja se o cookie veio
-  console.log("pending_user:", req.cookies.pending_user); // 👈 e se tem o email esperado
+  // console.log("Todos os cookies:", req.cookies); // 👈 veja se o cookie veio
+  // console.log("pending_user:", req.cookies.pending_user); // 👈 e se tem o email esperado
+
+  const [ rows ] = await db.query("SELECT * FROM users WHERE email = ? AND opt_code = ? ", [pendingEmail, code],
+  );
+    console.log("peedingEmail:", pendingEmail, code);
+    console.log("Resultado da consulta de verificação:", rows);
+
+    if (rows.length === 0) {
+      return res.status(401).json({ message: "Código inválido ou expirado" });
+    }
+
+    const user = rows[0];
+
+    // // Limpa o código (pra não ser reutilizado)
+     db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE id = ?", [user.id]);
   
-  console.log(pendingEmail);
-  db.query(
-    "SELECT * FROM users WHERE email = ? AND opt_code = ? AND opt_expires > NOW()",
-    [pendingEmail, code],
-
-    
-    (err, results) => {
-      if (err) return res.status(500).json({ message: "Erro no servidor" });
-      if (results.length === 0) return res.status(401).json({ message: "Código inválido ou expirado" });
-
-      const user = results[0];
-
-      // Limpa o código (pra não ser reutilizado)
-      db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE id = ?", [user.id]);
-
-      // Gera token JWT
+    // Gera token JWT
       const token = jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: "1h" });
 
       res.cookie("token", token, { 
@@ -281,11 +283,63 @@ app.post("/verify", (req, res) => {
         sameSite: "none",
         secure: true,
       });
+
+      await db.query(
+      "UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE id = ?",
+      [user.id]
+      );
+
+      console.log("Usuário autenticado com sucesso:", pendingEmail);
+      
       // res.clearCookie("pending_user"); // <- limpa o cookie
       return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
+      
+ 
 
-    }
-  );
+  //console.log(row)
+  // db.query(
+  //   'SELECT * FROM users WHERE email = ?', [pendingEmail], (err, result) => {
+  //     if(err) {
+  //       return res.status(500).json({ message: "Erro no servidor" })
+  //     }
+  //     console.log(result)
+  //     res.json(result)
+  //   }
+  // )
+  
+
+  //   db.query(
+  //   "SELECT * FROM users WHERE email = ? AND opt_code = ? AND opt_expires > NOW()",
+  //   [pendingEmail, code],
+  
+  //   (err, results) => {
+      
+  //     console.log("Resultados da consulta:", results); 
+  //     console.log("Resultados do erro:", err); 
+      
+  //     if (err) return res.status(500).json({ message: "Erro no servidor" });
+  //     if (results.length === 0) return res.status(401).json({ message: "Código inválido ou expirado" });
+
+
+  //     const user = results[0];
+
+  //     // // Limpa o código (pra não ser reutilizado)
+  //     db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE id = ?", [user.id]);
+
+      
+  //     // Gera token JWT
+  //     const token = jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: "1h" });
+
+  //     res.cookie("token", token, { 
+  //       httpOnly: true,
+  //       sameSite: "none",
+  //       secure: true,
+  //     });
+  //     // res.clearCookie("pending_user"); // <- limpa o cookie
+  //     return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
+
+  //   }
+  // );
 });
 
 
