@@ -5,7 +5,7 @@ const API_URL = isLocal
   : "https://login-mdwllab.onrender.com";
 
     // Verifica se o usuário tem sessão ativa no servidor
-    fetch(`${API_URL}protected`, {
+    fetch(`${API_URL}/protected`, {
       method: "GET",
       credentials: "include"
     })

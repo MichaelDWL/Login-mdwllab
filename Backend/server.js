@@ -294,52 +294,6 @@ app.post("/verify", async (req, res) => {
       // res.clearCookie("pending_user"); // <- limpa o cookie
       return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
       
- 
-
-  //console.log(row)
-  // db.query(
-  //   'SELECT * FROM users WHERE email = ?', [pendingEmail], (err, result) => {
-  //     if(err) {
-  //       return res.status(500).json({ message: "Erro no servidor" })
-  //     }
-  //     console.log(result)
-  //     res.json(result)
-  //   }
-  // )
-  
-
-  //   db.query(
-  //   "SELECT * FROM users WHERE email = ? AND opt_code = ? AND opt_expires > NOW()",
-  //   [pendingEmail, code],
-  
-  //   (err, results) => {
-      
-  //     console.log("Resultados da consulta:", results); 
-  //     console.log("Resultados do erro:", err); 
-      
-  //     if (err) return res.status(500).json({ message: "Erro no servidor" });
-  //     if (results.length === 0) return res.status(401).json({ message: "Código inválido ou expirado" });
-
-
-  //     const user = results[0];
-
-  //     // // Limpa o código (pra não ser reutilizado)
-  //     db.query("UPDATE users SET opt_code = NULL, opt_expires = NULL WHERE id = ?", [user.id]);
-
-      
-  //     // Gera token JWT
-  //     const token = jwt.sign({ id: user.id, username: user.username }, secret, { expiresIn: "1h" });
-
-  //     res.cookie("token", token, { 
-  //       httpOnly: true,
-  //       sameSite: "none",
-  //       secure: true,
-  //     });
-  //     // res.clearCookie("pending_user"); // <- limpa o cookie
-  //     return res.status(200).json({ success: true,message: "Autenticação concluída com sucesso!" });
-
-  //   }
-  // );
 });
 
 
