@@ -206,42 +206,33 @@ app.post("/register", async (req, res) => {
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[~!@#$%^&*]).{8,}$/;
    
     // Verifica se existe cadastro com esse email 
-    db.query("SELECT EMAIL FROM users WHERE EMAIL = ?", [email], (err, results) => {   
-
-      
-      if (results !== undefined && results.length > 0) { 
+    const [rows] = await db.query("SELECT EMAIL FROM users WHERE EMAIL = ?", [email]);
+    
+    if (rows.length > 0 && rows !== undefined) {
         return res.json({message: "Email já cadastrado, insira um email valido"})
       }
-
-    }) 
     
     // Verifica se a senha atende os requisitos minimos 
       if (!passwordRegex.test(password)) {
       return res.status(400).json({ message: "A senha não atende aos requisitos mínimos" });
     }
 
-  // Criptografa a senha 
-  const hashPass = await hashPassword(password)
+    // Criptografa a senha 
+    const hashPass = await hashPassword(password)
 
     // Salva os dados no banco de dados 
-
-    db.query(
-    " insert into users (username, email, password) values (?,?,?)", [username, email, hashPass],
-    (err, results) => {
-    
-    // Tratamento de exceções 
-    if (err) {
-      console.error(err);
+    try {
+      await db.query(
+      " insert into users (username, email, password) values (?,?,?)", [username, email, hashPass]  
+      );  
+    } catch (error) {
+      console.error("Erro ao registrar usuário:", error);
       return res.status(500).json({ message: "Erro no servidor" });
     }
-    if (results === 0){ 
-      console.error(err);
-      return res.status(501).json({ message: "Erro ao registrar usuário" });
-    }  
+    
     
     return res.status(201).json({ message: "Usuário registrado com sucesso" });
   });
-});
 // ------------FIM DA ROTA DE REGISTRO------------ // 
 
 
