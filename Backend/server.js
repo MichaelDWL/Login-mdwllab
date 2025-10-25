@@ -209,7 +209,7 @@ app.post("/register", async (req, res) => {
     const [rows] = await db.query("SELECT EMAIL FROM users WHERE EMAIL = ?", [email]);
     
     if (rows.length > 0 && rows !== undefined) {
-        return res.json({message: "Email já cadastrado, insira um email valido"})
+        return res.status(500).json({message: "Email já cadastrado, insira um email valido"})
       }
     
     // Verifica se a senha atende os requisitos minimos 

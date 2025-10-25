@@ -38,7 +38,8 @@ form.addEventListener("submit", async (e) => {
             alert(data.message); // Exibir mensagem de sucesso
             window.location.href = "/index.html"; // Redirecionar para a página home
             } else {
-            alert(data.message || "Erro no registro"); // Exibir mensagem de erro
+            alert(data.message || "Erro no registro");
+            window.location.href = "/register.js" // Exibir mensagem de erro
             }
         } catch (error) {
             alert("Erro ao conectar com o servidor");
