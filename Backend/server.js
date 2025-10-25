@@ -47,7 +47,7 @@ app.use(session({
   secret: "segredo-super-seguro",
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } //se HTTPS, mude pra true
+  cookie: { secure: true } //se HTTPS, mude pra true
 }));
 
 app.use(cookieParser());
