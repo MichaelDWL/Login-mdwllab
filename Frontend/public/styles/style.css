@@ -28,6 +28,12 @@ body {
     color: #4a006e;
     font-size: 24px;
 }
+
+h3 {
+    margin-bottom: 25px;
+    color: #6a0dad;;
+    font-size: 20px;
+}
 .card a {
     text-decoration: none;
     color: #6a0dad;
