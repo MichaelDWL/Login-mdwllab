@@ -2,7 +2,7 @@
 const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
 const API_URL = isLocal
   ? "http://localhost:3000"
-  : "https://login-mdwllab.onrender.com";
+  : "https://api.mdwl.com.br";
 
     // Verifica se o usuário tem sessão ativa no servidor
     fetch(`${API_URL}/protected`, {

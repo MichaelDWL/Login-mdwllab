@@ -3,7 +3,7 @@
 const isLocal = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
 const API_URL = isLocal
   ? "http://localhost:3000"
-  : "https://login-mdwllab.onrender.com";
+  : "https://api.mdwl.com.br";
 
 // Seleciona o formulário
 const form = document.getElementById("code-form");
