@@ -67,16 +67,17 @@ main {
 .iframe-container {
   position: relative;
   width: 100%;
-  max-width: 800px; /* tamanho máximo do slide */
-  padding-top: 56.25%; /*  proporção 16:9 */
+  max-width: 800px;
+  aspect-ratio: 16 / 9; /* substitui o padding-top fixo */
   overflow: hidden;
   border-radius: 12px;
-  margin: 20px auto; /*  centraliza horizontalmente */
-  background: #000; 
-}
+  margin: 20px auto;
+  background: #000;
+  height: 100%; /* garante altura dinâmica */
+} 
 
 .iframe-container iframe {
-  object-fit: contain;
+  object-fit: cover;
   position: absolute;
   top: 0;
   left: 0;

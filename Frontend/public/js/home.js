@@ -31,13 +31,23 @@ const API_URL = isLocal
     });
 
     // 🧭 Função de fullscreen
-    document.getElementById("fullscreen-btn").addEventListener("click", () => {
-      const iframe = document.getElementById("pdf-frame");
-      if (iframe.requestFullscreen) {
-        iframe.requestFullscreen();
-      } else if (iframe.webkitRequestFullscreen) { // Safari
-        iframe.webkitRequestFullscreen();
-      } else if (iframe.msRequestFullscreen) { // IE/Edge antigo
-        iframe.msRequestFullscreen();
-      }
-    });
+function ativarTelaCheia() {
+  const iframeContainer = document.querySelector('.iframe-container');
+
+  // Tenta o fullscreen nativo (funciona no Android e desktop)
+  if (iframeContainer.requestFullscreen) {
+    iframeContainer.requestFullscreen();
+  } else if (iframeContainer.webkitRequestFullscreen) { // Safari
+    iframeContainer.webkitRequestFullscreen();
+  } else {
+    // Fallback iOS: simula fullscreen escondendo o resto
+    document.body.style.overflow = 'hidden';
+    document.querySelector('main').style.display = 'none';
+    iframeContainer.style.position = 'fixed';
+    iframeContainer.style.top = '0';
+    iframeContainer.style.left = '0';
+    iframeContainer.style.width = '100vw';
+    iframeContainer.style.height = '100dvh';
+    iframeContainer.style.zIndex = '9999';
+  }
+}
