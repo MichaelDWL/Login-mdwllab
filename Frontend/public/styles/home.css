@@ -1,99 +1,167 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  height: 100vh;
   font-family: "Poppins", sans-serif;
-  background-color:  #C4C9F3;
-  color: #222;
-  align-items: center;
+  display: flex;
   justify-content: center;
+  align-items: center;
+  color: #222;
+  min-height: 100vh; 
+  background-color: #C4C9F3;
+  flex-direction: column; 
+}
+
+main {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.apresentacao {
+  background: whitesmoke;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  width: 90%;
 }
 
 h1 {
-  justify-content: center;
-  /* margin: 0; */
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
 }
 
 h2 {
   font-size: 15px;
-  margin-top: 30px;
   color: #4a006e;
+  margin-bottom: 25px;
 }
 
-button {
-  background: #6a0dad;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  font-size: medium;
-}
-
-button:hover {
-  background: #d93636;
-}
-
-main {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* centraliza verticalmente */
-  align-items: center; /* centraliza horizontalmente */
-  text-align: center;
-  padding: 40px;
- 
-}
-
-.apresentacao {
-  background: whitesmoke;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 100%;
-}
-
-/* 🔽 Container responsivo */
-.iframe-container {
+/* === Carrossel === */
+.carousel-container {
   position: relative;
   width: 100%;
-  max-width: 800px;
-  aspect-ratio: 16 / 9; /* substitui o padding-top fixo */
   overflow: hidden;
   border-radius: 12px;
-  margin: 20px auto;
   background: #000;
-  height: 100%; /* garante altura dinâmica */
-} 
-
-.iframe-container iframe {
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
-/* 🔽 Botão de fullscreen */
+.carousel-images {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+/* Botões do carrossel */
+.carousel-container button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-container button:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Tela cheia */
+:fullscreen .carousel-container,
+:-webkit-full-screen .carousel-container {
+  width: 100vw;
+  height: 100dvh;
+  border-radius: 0;
+}
+
+:fullscreen .carousel-images img,
+:-webkit-full-screen .carousel-images img {
+  height: 100dvh;
+  object-fit: contain;
+}
+
+/* Botão Tela Cheia */
 .fullscreen-btn {
   background: #6a0dad;
-  color: #fff;
-  margin-bottom: 10px;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .fullscreen-btn:hover {
   background: #4a006e;
+}
+
+/* === Seção de Tópicos === */
+.topicos {
+  margin-top: 40px;
+  padding: 20px;
+  text-align: center;
+  color: #222;
+}
+
+.topicos h2 {
+  color: #4a006e;
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+}
+
+.topicos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+.topico {
+  background: whitesmoke;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.topico:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.topico h3 {
+  color: #6a0dad;
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.topico p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #333;
 }

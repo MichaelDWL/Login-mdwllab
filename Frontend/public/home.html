@@ -1,47 +1,74 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home - Apresentação</title>
+  <title>Apresentação</title>
   <link rel="stylesheet" href="./styles/home.css" />
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-    
-    <main>
+  <main>
+    <div class="apresentacao">
+      <h1>Seja bem-vindo!</h1>
+      <h2>Segurança de Acesso</h2>
+      
+      <section class="topicos">
+        <h2>Principais Tópicos sobre Segurança de Acesso</h2>
 
-        <section class="apresentacao">
+        <div class="topicos-container">
+          <div class="topico">
+            <h3>🔐 O que é Segurança de Acesso</h3>
+            <p>Garante que apenas pessoas autorizadas possam acessar sistemas e informações, protegendo dados contra invasões e uso indevido.</p>
+          </div>
 
-        <div>
-          <h1>Seja muito bem vindo!</h1>
-          
+          <div class="topico">
+            <h3>🧑‍💻 Autenticação e Autorização</h3>
+            <p>Autenticação confirma quem é o usuário; autorização define o que ele pode fazer. Ambas são essenciais para manter o controle de acesso.</p>
+          </div>
+
+          <div class="topico">
+            <h3>🔑 Métodos de Proteção</h3>
+            <p>Senhas fortes, autenticação em dois fatores e criptografia ajudam a evitar invasões e aumentar a segurança digital.</p>
+          </div>
+
+          <div class="topico">
+            <h3>🛡️ Boas Práticas de Segurança</h3>
+            <p>Evite senhas simples, atualize seus sistemas e desconfie de links suspeitos. Pequenas ações fazem grande diferença.</p>
+          </div>
+
+          <div class="topico">
+            <h3>🌐 O Futuro da Segurança</h3>
+            <p>Biometria, autenticação sem senha e inteligência artificial estão tornando o acesso mais seguro e prático.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-images">
+          <img src="./assets/Slide1.JPG" alt="Slide 1">
+          <img src="./assets/Slide2.JPG" alt="Slide 2">
+          <img src="./assets/Slide3.JPG" alt="Slide 3">
+          <img src="./assets/Slide4.JPG" alt="Slide 4">
+          <img src="./assets/Slide5.JPG" alt="Slide 5">
+          <img src="./assets/Slide6.JPG" alt="Slide 6">
+          <img src="./assets/Slide7.JPG" alt="Slide 7">
+          <img src="./assets/Slide8.JPG" alt="Slide 8">
+          <img src="./assets/Slide9.JPG" alt="Slide 9">
+          <img src="./assets/Slide10.JPG" alt="Slide 10">
+          <img src="./assets/Slide11.JPG" alt="Slide 11">
+          <img src="./assets/Slide12.JPG" alt="Slide 12">
         </div>
 
-        <h2>Segurança de Acesso</h2>
+        <button class="prev" onclick="mudarSlide(-1)">‹</button>
+        <button class="next" onclick="mudarSlide(1)">›</button>
+      </div>
 
-        <!--  Botão para fullscreen -->
-        <button id="fullscreen-btn" class="fullscreen-btn">Tela Cheia</button>
-
-        <!--  Iframe responsivo e com suporte a fullscreen -->
-        <div class="iframe-container">
-            <iframe
-            id="pdf-frame"
-            src="./assets/Segurança de acesso.pdf"
-            allowfullscreen
-            loading="lazy"
-            ></iframe>
-        </div>
-
-        <div>
-            
-            <button id="logout-btn"><i class="fa-solid fa-power-off"></i> </button>
-        </div>
-
-    </section>
+      <button class="fullscreen-btn" onclick="toggleFullscreen()">Tela Cheia</button>
+    </div>
   </main>
 
-  <script src="./js/home.js"> </script>
+  <script src="./js/home.js"></script>
 </body>
 </html>
