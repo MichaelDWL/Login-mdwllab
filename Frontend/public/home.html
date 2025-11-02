@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Apresentação</title>
   <link rel="stylesheet" href="./styles/home.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
   <main>
     <div class="apresentacao">
+      
       <h1>Seja bem-vindo!</h1>
-      <h2>Segurança de Acesso</h2>
       
       <section class="topicos">
         <h2>Principais Tópicos sobre Segurança de Acesso</h2>
@@ -45,6 +46,8 @@
         </div>
       </section>
 
+      <button class="fullscreen-btn" onclick="toggleFullscreen()">Tela Cheia</button>
+
       <div class="carousel-container" id="carouselContainer">
         <div class="carousel-images">
           <img src="./assets/Slide1.JPG" alt="Slide 1">
@@ -65,9 +68,11 @@
         <button class="next" onclick="mudarSlide(1)">›</button>
       </div>
 
-      <button class="fullscreen-btn" onclick="toggleFullscreen()">Tela Cheia</button>
+      <button id="logout-btn"><i class="fa-solid fa-power-off"></i> </button>
+
     </div>
   </main>
+
 
   <script src="./js/home.js"></script>
 </body>
