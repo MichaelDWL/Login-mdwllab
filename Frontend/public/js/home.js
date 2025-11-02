@@ -4,6 +4,27 @@ const API_URL = isLocal
   ? "http://localhost:3000"
   : "https://api.mdwl.com.br";
 
+  async function carregarUsuario() {
+  try {
+    const res = await fetch(`${API_URL}/user`, {
+      method: "GET",
+      credentials: "include" // envia o cookie JWT
+    });
+
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      document.getElementById("welcome-text").textContent =
+        `Seja bem-vindo, ${data.user.username}!`;
+    } else {
+      document.getElementById("welcome-text").textContent = "Seja bem-vindo!";
+    }
+  } catch (err) {
+    console.error("Erro ao carregar usuário:", err);
+  }
+}
+
+carregarUsuario();
   // // Verifica se o usuário tem sessão ativa no servidor
   // fetch(`${API_URL}/protected`, {
   //   method: "GET",

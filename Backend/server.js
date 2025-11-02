@@ -168,6 +168,26 @@ app.get("/protected", authenticateToken, (req, res) => {
   res.json({ message: `Bem-vindo, ${req.user.email}!` });
 });
 
+// ------------Rota para pegar o nome do usuário logado------------ //
+app.get("/user", authenticateToken, async (req, res) => {
+  try {
+    // você já tem req.user.id e req.user.username vindos do token
+    const [rows] = await db.query(
+      "SELECT username, email FROM users WHERE id = ?",
+      [req.user.id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+
+    res.json({ success: true, user: rows[0] });
+  } catch (err) {
+    console.error("Erro ao buscar usuário:", err);
+    res.status(500).json({ message: "Erro no servidor" });
+  }
+});
+
 app.get("/home", authenticateToken, (req, res) => {
   res.sendFile(path.join(__dirname, "Frontend", "src", "pages", "home", "home.html"));
   res.sendFile(filePath);
