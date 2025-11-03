@@ -46,7 +46,7 @@ form.addEventListener("submit", async (e) => {
             window.location.href = "/index.html"; // Redirecionar para a página home
             } else {
             alert(data.message || "Erro no registro");
-            window.location.href = "/register.js" // Exibir mensagem de erro
+            window.location.href = "/register" // Exibir mensagem de erro
             }
 
         } catch (error) {
