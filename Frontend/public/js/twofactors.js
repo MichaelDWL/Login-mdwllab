@@ -5,6 +5,8 @@ const API_URL = isLocal
   ? "http://localhost:3000"
   : "https://api.mdwl.com.br";
 
+const sendBtn = document.getElementById("send-btn");
+
 // Seleciona o formulário
 const form = document.getElementById("code-form");
 const resendBtn = document.getElementById("resend-btn");
@@ -16,10 +18,9 @@ let remainingTime = 60; // tempo em segundos
 const email = localStorage.getItem("userEmail");
   
   if (!email) {
-  alert("Email não encontrado. Faça login novamente.");
-  window.location.href = "/login.html";
+    alert("Email não encontrado. Faça login novamente.");
+    window.location.href = "/login.html";
   }
-
 
 // Passa automaticamente para o próximo campo ao digitar
 const inputs = document.querySelectorAll("input[name='code']");
@@ -96,6 +97,10 @@ resendBtn.addEventListener("click", async () => {
 // Verifica o código quando o formulário é enviado
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  
+    sendBtn.disabled = true;
+    sendBtn.textContent = "verificando...";
+    sendBtn.style.opacity = "30%";
 
   // Junta os 5 dígitos em um único código
   const code = Array.from(form.querySelectorAll("input[name='code']"))

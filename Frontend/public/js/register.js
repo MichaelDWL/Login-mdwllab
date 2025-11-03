@@ -6,9 +6,14 @@ const API_URL = isLocal
   : "https://api.mdwl.com.br";
 
 const form = document.getElementById("register-form"); 
+const sendBtn = document.getElementById("send-btn");
 
 form.addEventListener("submit", async (e) => { 
     e.preventDefault();
+
+    sendBtn.disabled = true;
+    sendBtn.textContent = "Registrando...";
+    sendBtn.style.opacity = "30%";
 
     const email = form.querySelector("input[name = 'email' ]").value.trim(); 
     const username = form.querySelector("input[name = 'username' ]").value.trim(); 
@@ -23,7 +28,6 @@ form.addEventListener("submit", async (e) => {
     else{
             try {
                 
-
             const res = await fetch(`${API_URL}/register`, { 
             method: "POST", 
             headers: {"Content-Type": "application/json"}, 
@@ -79,13 +83,6 @@ function togglePassword() {
         icon.classList.add("fa-eye");
       }
     }
-
-
-
-
-
-
-
 
 // const password = form.querySelector("input[name = 'password' ]");
 

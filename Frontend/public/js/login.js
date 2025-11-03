@@ -6,12 +6,18 @@ const API_URL = isLocal
   ? "http://localhost:3000"
   : "https://api.mdwl.com.br";
 
+const sendBtn = document.getElementById("send-btn");
+
 const form = document.getElementById("login-form");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = form.querySelector("input[name='email']").value.trim();
+  sendBtn.disabled = true;
+  sendBtn.textContent = "Logando...";
+  sendBtn.style.opacity = "30%";
+
+    const email = form.querySelector("input[name='email']").value.trim();
   const password = form.querySelector("input[name='password']").value;
 
   try {
