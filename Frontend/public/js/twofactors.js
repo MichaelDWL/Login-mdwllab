@@ -19,7 +19,7 @@ const email = localStorage.getItem("userEmail");
   
   if (!email) {
     alert("Email não encontrado. Faça login novamente.");
-    window.location.href = "/login.html";
+    window.location.href = "/index";
   }
 
 // Passa automaticamente para o próximo campo ao digitar
@@ -128,7 +128,7 @@ form.addEventListener("submit", async (e) => {
     if (res.ok && data.success) {
       alert("Acesso liberado!");
       localStorage.removeItem("userEmail"); // lImpa o email armazenado
-      window.location.href = "/home.html"; // redireciona para home/dashboard
+      window.location.href = "/home"; // redireciona para home/dashboard
     } else {
       sendBtn.disabled = false;
       sendBtn.textContent = "Login";

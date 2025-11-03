@@ -33,12 +33,12 @@ carregarUsuario();
   .then(res => {
     if (!res.ok) {
       alert("Acesso negado. Faça login primeiro.");
-      window.location.href = "/index.html";
+      window.location.href = "/index";
     }
   })
   .catch(() => {
     alert("Erro ao verificar sessão. Faça login novamente.");
-    window.location.href = "/index.html";
+    window.location.href = "/index";
   });
 
   // Botão de logout
@@ -47,7 +47,7 @@ carregarUsuario();
       method: "POST",
       credentials: "include"
     }).then(() => {
-      window.location.href = "/index.html";
+      window.location.href = "/index";
     });
   });
 

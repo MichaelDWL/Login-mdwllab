@@ -43,7 +43,7 @@ form.addEventListener("submit", async (e) => {
 
             if (res.ok) { 
             alert(data.message); // Exibir mensagem de sucesso
-            window.location.href = "/index.html"; // Redirecionar para a página home
+            window.location.href = "/index"; // Redirecionar para a página home
             } else {
             alert(data.message || "Erro no registro");
             window.location.href = "/register" // Exibir mensagem de erro

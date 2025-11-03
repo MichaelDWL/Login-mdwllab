@@ -46,7 +46,7 @@ form.addEventListener("submit", async (e) => {
 
         if (codeRes.ok && codeData.success) {
           alert("Código enviado ao e-mail!");
-          window.location.href = "/twofactors.html";
+          window.location.href = "/twofactors";
         } else {
           sendBtn.disabled = false;
           sendBtn.textContent = "Login";
