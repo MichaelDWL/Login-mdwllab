@@ -22,6 +22,9 @@ form.addEventListener("submit", async (e) => {
 
     if (password !== passwordCompare) {
         alert(" As senhas não coincidem!");
+        sendBtn.disabled = false;
+        sendBtn.textContent = "Registrar";
+        sendBtn.style.opacity = "100%";
         return;
     }
         
@@ -45,12 +48,14 @@ form.addEventListener("submit", async (e) => {
             alert(data.message || "Erro no registro");
             window.location.href = "/register.js" // Exibir mensagem de erro
             }
+
         } catch (error) {
+            sendBtn.disabled = false;
+            sendBtn.textContent = "Registrar";
+            sendBtn.style.opacity = "100%";
             alert("Erro ao conectar com o servidor");
-        }
-
+          }
     }
-
 
 });
 

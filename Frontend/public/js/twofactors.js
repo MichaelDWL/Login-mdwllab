@@ -130,6 +130,9 @@ form.addEventListener("submit", async (e) => {
       localStorage.removeItem("userEmail"); // lImpa o email armazenado
       window.location.href = "/home.html"; // redireciona para home/dashboard
     } else {
+      sendBtn.disabled = false;
+      sendBtn.textContent = "Login";
+      sendBtn.style.opacity = "100%";
       alert(data.message || "Código inválido!");
     }
     

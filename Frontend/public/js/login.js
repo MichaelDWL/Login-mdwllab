@@ -48,17 +48,29 @@ form.addEventListener("submit", async (e) => {
           alert("Código enviado ao e-mail!");
           window.location.href = "/twofactors.html";
         } else {
+          sendBtn.disabled = false;
+          sendBtn.textContent = "Login";
+          sendBtn.style.opacity = "100%";
           alert(codeData.message || "Erro ao enviar o código.");
         }
       } catch (err) {
+        sendBtn.disabled = false;
+        sendBtn.textContent = "Login";
+        sendBtn.style.opacity = "100%";
         console.error("Erro ao enviar código:", err);
         alert("Erro ao conectar com o servidor");
       }
 
     } else {
+      sendBtn.disabled = false;
+      sendBtn.textContent = "Login";
+      sendBtn.style.opacity = "100%";
       alert(data.message || "Erro no login");
     }
   } catch (error) {
+    sendBtn.disabled = false;
+    sendBtn.textContent = "Login";
+    sendBtn.style.opacity = "100%";
     console.error("Erro no login:", error);
     alert("Erro ao conectar com o servidor");
   }
